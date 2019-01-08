@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tid</title>
+</head>
+<body>
+    <h2>Tid</h2>
+    <ul>
+        {% for tid in object_list %}
+            <li>{{ tid.datum }}</li>
+            <li>{{ tid.timmar }}</li>
+            <li>{{ tid.arbetsplats }}</li>
+            <li>{{ tid.kund }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
