@@ -1,19 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Tid</title>
-</head>
-<body>
-    <h2>Tid</h2>
-    <ul>
-        {% for tid in object_list %}
-            <li>{{ tid.datum }}</li>
-            <li>{{ tid.timmar }}</li>
-            <li>{{ tid.arbetsplats }}</li>
-            <li>{{ tid.kund }}</li>
-        {% endfor %}
-    </ul>
-
-</body>
-</html>
+{% extends 'base.html' %}
+    {% block body_block %}
+        <!-- Start Card Content 5-->
+    <div class="container">
+      <div class="card bg-dark text-warning mt-5 shadow">
+        <div class="card-body">
+          <h2 class="card-title">Projekt visa</h2>
+          <table class="table table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Projektnr</th>
+                <th scope="col">Timmar</th>
+                <th scope="col">Arbetsplats</th>
+                <th scope="col">Kund</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for tid in object_list %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ tid.datum }}</td>
+                        <td>{{ tid.projektnr }}</td>
+                        <td>{{ tid.timmar }}</td>
+                        <td>{{ tid.arbetsplats }}</td>
+                        <td>{{ tid.kund }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- End Card Content 5-->
+    {% endblock %}
