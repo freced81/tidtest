@@ -4,16 +4,14 @@
     <div class="container">
       <div class="card bg-dark text-warning mt-5 shadow">
         <div class="card-body">
-          <h2 class="card-title">Projekt visa</h2>
+          <h2 class="card-title">Tidlista</h2>
           <table class="table table-hover">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Datum</th>
-                <th scope="col">Projektnr</th>
-                <th scope="col">Timmar</th>
-                <th scope="col">Arbetsplats</th>
-                <th scope="col">Kund</th>
+                <th class="text-warning" scope="col">#</th>
+                <th class="text-warning" scope="col">Datum</th>
+                <th class="text-warning" scope="col">Projektnr</th>
+                <th class="text-warning" scope="col">Timmar</th>
               </tr>
             </thead>
             <tbody>
@@ -22,9 +20,13 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td>{{ tid.datum }}</td>
                         <td>{{ tid.projektnr }}</td>
-                        <td>{{ tid.timmar }}</td>
-                        <td>{{ tid.arbetsplats }}</td>
-                        <td>{{ tid.kund }}</td>
+                        {% if tid.sjuk %}
+                            <td>{{ tid.timmar }} (Sjuk)</td>
+                        {% elif tid.tidbank %}
+                            <td>{{ tid.timmar }} (Tidbank)</td>
+                        {% else %}
+                            <td>{{ tid.timmar }}</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

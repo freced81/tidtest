@@ -1,6 +1,8 @@
-from django.urls import path
-from tid_rapport.views import TidList
+from django.urls import path, include
+from django.contrib import admin
+
 
 urlpatterns = [
-    path('tid/', TidList.as_view()),
+    path('', include('tid_rapport.urls', namespace='tid_rapport')),
+    path('admin/', admin.site.urls, name='admin')
 ]

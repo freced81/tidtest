@@ -13,7 +13,7 @@
   <body class="bg-light">
     <!-- Start navbar! -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand text-warning" href="{% url 'admin:index' %}">Admin</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -22,11 +22,19 @@
         <ul class="navbar-nav mr-auto">
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
+            <a class="nav-link text-warning" href="{% url 'tid_rapport:tid_list' %}">Tidrapport</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link text-warning" href="#">Kund</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link text-warning" href="#">Projekt</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link text-warning" href="#">Arbetsplats</a>
           </li>
 
           <!-- Start Dropdown! -->
@@ -42,9 +50,6 @@
             </div>
           </li>
           <!-- End Dropdown! -->
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="email" placeholder="Email" aria-label="Email">

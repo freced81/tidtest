@@ -7,22 +7,29 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Tid',
+            name="Tid",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('datum', models.DateField()),
-                ('timmar', models.IntegerField(default=0)),
-                ('projektnr', models.IntegerField(default=1900)),
-                ('arbetsplats', models.CharField(max_length=60)),
-                ('kund', models.CharField(max_length=60)),
-                ('arbete', models.BooleanField()),
-                ('sjuk', models.BooleanField()),
-                ('tidbank', models.BooleanField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("datum", models.DateField()),
+                ("timmar", models.IntegerField(default=0)),
+                ("projektnr", models.IntegerField(default=1900)),
+                ("arbetsplats", models.CharField(max_length=60)),
+                ("kund", models.CharField(max_length=60)),
+                ("arbete", models.BooleanField()),
+                ("sjuk", models.BooleanField()),
+                ("tidbank", models.BooleanField()),
             ],
-        ),
+        )
     ]
