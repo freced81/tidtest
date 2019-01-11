@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+    {% block body_block %}
+    <div class="container">
+      <div class="card bg-dark text-warning mt-5 shadow">
+        <div class="card-body">
+          <h2 class="card-title">Arbetsplats lista</h2>
+          <table class="table table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th class="text-warning" scope="col">#</th>
+                <th class="text-warning" scope="col">Namn</th>
+                <th class="text-warning" scope="col">Kontaktperson</th>
+                <th class="text-warning" scope="col">Telefonnummer</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for arbetsplats in object_list %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ arbetsplats.arbetsplats_namn }}</td>
+                        <td>{{ arbetsplats.arbetsplats_kontakt_person }}</td>
+                        <td>{{ arbetsplats.arbetsplats_telefonnr }}</td>
+                        <td><a class="text-success" href="#">Update, </a><a class="text-danger" href="{% url 'tid_rapport:arbetsplats_delete' pk=arbetsplats.pk %}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-outline-primary">Lägg till</button>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
