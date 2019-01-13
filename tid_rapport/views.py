@@ -1,48 +1,65 @@
-from django.views.generic import (ListView, TemplateView,
-                                  DeleteView, CreateView,
-                                  UpdateView)
-from .models import Tid, Projekt, Arbetsplats, Kund
+from django.views.generic import (TemplateView, ListView,
+                                  CreateView, UpdateView,
+                                  DeleteView, DetailView)
 from django.urls import reverse_lazy
+from .models import Kund, Arbetsplats
+from .forms import KundForm, ArbetsplatsForm
 
 
 class IndexView(TemplateView):
     template_name = "index.html"
 
-
-class TidListView(ListView):
-    model = Tid
-    context_object_name = "tid_list"
-    template_name = "tid_list.html"
-
-
-class KundListView(ListView):
+#Kund
+class KundList(ListView):
+    template_name = "kund/kund_list.html"
     model = Kund
-    context_object_name = "kund_list"
-    template_name = "kund_list.html"
+    context_object_name = 'kunder'
+
+class KundDetail(DetailView):
+    template_name = "kund/kund_detail.html"
+    model = Kund
+
+class CreateKund(CreateView):
+    template_name = "kund/kund_form.html"
+    model = Kund
+    form_class = KundForm
+    success_url = reverse_lazy('tid_rapport:kund_list')
+
+class KundUpdate(UpdateView):
+    template_name = "kund/kund_form.html"
+    model = Kund
+    form_class = KundForm
+    success_url = reverse_lazy('tid_rapport:kund_list')
+
+class KundDelete(DeleteView):
+    template_name = "kund/kund_confirm_delete.html"
+    model = Kund
+    success_url = reverse_lazy('tid_rapport:kund_list')
 
 
-class ProjektListView(ListView):
-    model = Projekt
-    context_object_name = "projekt_list"
-    template_name = "projekt_list.html"
-
-
-# Arbetsplats
-class ArbetsplatsListView(ListView):
+#Arbetsplats
+class ArbetsplatsList(ListView):
+    template_name = "arbetsplats/arbetsplats_list.html"
     model = Arbetsplats
-    context_object_name = "arbetsplats_list"
-    template_name = "arbetsplats_list.html"
+    context_object_name = 'arbetsplatser'
 
-
-class CreateArbetsplatsView(CreateView):
+class ArbetsplatsDetail(DetailView):
+    template_name = "arbetsplats/arbetsplats_detail.html"
     model = Arbetsplats
 
-
-class ArbetsplatsUpdateView(UpdateView):
+class CreateArbetsplats(CreateView):
+    template_name = "arbetsplats/arbetsplats_form.html"
     model = Arbetsplats
+    form_class = ArbetsplatsForm
+    success_url = reverse_lazy('tid_rapport:arbetsplats_list')
 
-
-class ArbetsplatsDeleteView(DeleteView):
+class ArbetsplatsUpdate(UpdateView):
+    template_name = "arbetsplats/arbetsplats_form.html"
     model = Arbetsplats
-    template_name = "arbetsplats_list.html"
+    form_class = ArbetsplatsForm
+    success_url = reverse_lazy('tid_rapport:arbetsplats_list')
+
+class ArbetsplatsDelete(DeleteView):
+    template_name = "arbetsplats/arbetsplats_confirm_delete.html"
+    model = Arbetsplats
     success_url = reverse_lazy('tid_rapport:arbetsplats_list')

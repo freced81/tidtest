@@ -8,47 +8,84 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Arbetsplats',
+            name="Arbetsplats",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('arbetsplats_namn', models.CharField(max_length=100)),
-                ('arbetsplats_kontakt_person', models.CharField(max_length=100)),
-                ('arbetsplats_telefonnr', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("arbetsplats_namn", models.CharField(max_length=100)),
+                ("arbetsplats_kontakt_person", models.CharField(max_length=100)),
+                ("arbetsplats_telefonnr", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Kund',
+            name="Kund",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('kund_namn', models.CharField(max_length=100)),
-                ('kund_kontakt_person', models.CharField(max_length=100)),
-                ('kund_telefonnr', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("kund_namn", models.CharField(max_length=100)),
+                ("kund_kontakt_person", models.CharField(max_length=100)),
+                ("kund_telefonnr", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Projekt',
+            name="Projekt",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('projektnr', models.IntegerField(default=1900)),
-                ('arbetsplats', models.ManyToManyField(to='tid_rapport.Arbetsplats')),
-                ('kund', models.ManyToManyField(to='tid_rapport.Kund')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("projektnr", models.IntegerField(default=1900)),
+                ("arbetsplats", models.ManyToManyField(to="tid_rapport.Arbetsplats")),
+                ("kund", models.ManyToManyField(to="tid_rapport.Kund")),
             ],
         ),
         migrations.CreateModel(
-            name='Tid',
+            name="Tid",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('datum', models.DateField()),
-                ('timmar', models.IntegerField(default=0)),
-                ('arbete', models.BooleanField(default=True)),
-                ('sjuk', models.BooleanField(default=False)),
-                ('tidbank', models.BooleanField(default=False)),
-                ('projektnr', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tid_rapport.Projekt')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("datum", models.DateField()),
+                ("timmar", models.IntegerField(default=0)),
+                ("arbete", models.BooleanField(default=True)),
+                ("sjuk", models.BooleanField(default=False)),
+                ("tidbank", models.BooleanField(default=False)),
+                (
+                    "projektnr",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="tid_rapport.Projekt",
+                    ),
+                ),
             ],
         ),
     ]

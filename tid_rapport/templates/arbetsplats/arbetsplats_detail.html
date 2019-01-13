@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+    {% block title %}Arbetsplats{% endblock %}
+    {% block body_block %}
+        <h3 class="card-title">Arbetsplats: {{ object.arbetsplats_namn }}</h3>
+        <p class="card-test">Kontakt: {{ object.arbetsplats_kontakt_person}}</p>
+        <p class="card-text">Telefonnummer: {{ object.arbetsplats_telefonnr }}</p>
+    {% endblock %}

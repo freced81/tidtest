@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Kund{% endblock %}
+{% block body_block %}
+    <form method="post">{% csrf_token %}
+        <h3 class="card-title">Är du säker på att du vill radera ?</h3>
+        <p class="card-text">Kund: {{ object }}</p>
+        <input class="btn btn-outline-danger" type="submit" value="Confirm">
+    </form>
+{% endblock %}

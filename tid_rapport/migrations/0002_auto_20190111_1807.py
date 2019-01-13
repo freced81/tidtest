@@ -6,32 +6,32 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('tid_rapport', '0001_initial'),
-    ]
+    dependencies = [("tid_rapport", "0001_initial")]
 
     operations = [
         migrations.AlterField(
-            model_name='kund',
-            name='kund_kontakt_person',
+            model_name="kund",
+            name="kund_kontakt_person",
             field=models.CharField(blank=True, max_length=100),
         ),
-        migrations.RemoveField(
-            model_name='projekt',
-            name='arbetsplats',
-        ),
+        migrations.RemoveField(model_name="projekt", name="arbetsplats"),
         migrations.AddField(
-            model_name='projekt',
-            name='arbetsplats',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='tid_rapport.Arbetsplats'),
+            model_name="projekt",
+            name="arbetsplats",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="tid_rapport.Arbetsplats",
+            ),
         ),
-        migrations.RemoveField(
-            model_name='projekt',
-            name='kund',
-        ),
+        migrations.RemoveField(model_name="projekt", name="kund"),
         migrations.AddField(
-            model_name='projekt',
-            name='kund',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='tid_rapport.Kund'),
+            model_name="projekt",
+            name="kund",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="tid_rapport.Kund",
+            ),
         ),
     ]
