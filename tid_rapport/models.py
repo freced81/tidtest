@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
+
 class Kund(models.Model):
     kund_namn = models.CharField(max_length=100)
     kund_kontakt_person = models.CharField(max_length=100, blank=True)
@@ -10,7 +11,7 @@ class Kund(models.Model):
         return str(self.kund_namn)
 
     def get_absolute_url(self):
-        return reverse("tid_rapport:kund_detail", kwargs={'pk': self.pk})
+        return reverse("tid_rapport:kund_detail", kwargs={"pk": self.pk})
 
 
 class Arbetsplats(models.Model):
@@ -22,7 +23,7 @@ class Arbetsplats(models.Model):
         return str(self.arbetsplats_namn)
 
     def get_absolute_url(self):
-        return reverse("tid_rapport:arbetsplats_detail", kwargs={'pk': self.pk})
+        return reverse("tid_rapport:arbetsplats_detail", kwargs={"pk": self.pk})
 
 
 class Projekt(models.Model):
@@ -33,6 +34,8 @@ class Projekt(models.Model):
     def __str__(self):
         return str(self.projektnr)
 
+    def get_absolute_url(self):
+        return reverse("tid_rapport:projekt_detail", kwargs={"pk": self.pk})
 
 class Tid(models.Model):
 
