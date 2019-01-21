@@ -7,8 +7,8 @@ from django.views.generic import (
     DetailView,
 )
 from django.urls import reverse_lazy
-from .models import Kund, Arbetsplats, Projekt
-from .forms import KundForm, ArbetsplatsForm, ProjektForm
+from .models import Kund, Arbetsplats, Projekt, Tid
+from .forms import KundForm, ArbetsplatsForm, ProjektForm, TidForm
 
 
 class IndexView(TemplateView):
@@ -110,3 +110,34 @@ class ProjektDelete(DeleteView):
     model = Projekt
     success_url = reverse_lazy("tid_rapport:projekt_list")
 
+
+# Tid
+class TidList(ListView):
+    template_name = "tid/tid_list.html"
+    model = Tid
+    context_object_name = "tider"
+
+
+class TidDetail(DetailView):
+    template_name = "tid/tid_detail.html"
+    model = Tid
+
+
+class CreateTid(CreateView):
+    template_name = "tid/tid_form.html"
+    model = Tid
+    form_class = TidForm
+    success_url = reverse_lazy("tid_rapport:tid_list")
+
+
+class TidUpdate(UpdateView):
+    template_name = "tid/tid_form.html"
+    model = Tid
+    form_class = TidForm
+    success_url = reverse_lazy("tid_rapport:tid_list")
+
+
+class TidDelete(DeleteView):
+    template_name = "tid/tid_confirm_delete.html"
+    model = Tid
+    success_url = reverse_lazy("tid_rapport:tid_list")

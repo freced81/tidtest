@@ -37,14 +37,18 @@ class Projekt(models.Model):
     def get_absolute_url(self):
         return reverse("tid_rapport:projekt_detail", kwargs={"pk": self.pk})
 
+
 class Tid(models.Model):
 
     datum = models.DateField()
-    timmar = models.IntegerField(default=0)
     projektnr = models.ForeignKey("Projekt", on_delete=models.CASCADE)
+    timmar = models.IntegerField(default=0)
     arbete = models.BooleanField(default=True)
     sjuk = models.BooleanField(default=False)
     tidbank = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.datum)
+
+    def get_absolute_url(self):
+        return reverse("tid_rapport:tid_detail", kwargs={"pk": self.pk})

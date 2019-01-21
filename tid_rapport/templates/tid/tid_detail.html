@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+    {% block title %}Tid{% endblock %}
+    {% block body_block %}
+        <h3 class="card-title">Datum: {{ object.datum }}</h3>
+        <p class="card-test">Projektnummer: {{ object.projektnr }}</p>
+        <p class="card-text">Antal timmar: {{ object.timmar }}
+            {% if object.sjuk %}
+                ,Sjuk
+            {% elif object.tidbank %}
+                ,Tidbank
+            {% endif %}
+        </p>
+    {% endblock %}

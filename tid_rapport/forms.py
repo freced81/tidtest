@@ -1,8 +1,7 @@
 from django import forms
 
-from .models import (Kund, Arbetsplats,
-                     Projekt
-)
+from .models import Kund, Arbetsplats, Projekt, Tid
+
 
 class KundForm(forms.ModelForm):
     class Meta:
@@ -39,25 +38,23 @@ class ArbetsplatsForm(forms.ModelForm):
 class ProjektForm(forms.ModelForm):
     class Meta:
         model = Projekt
-        fields = (
-            "projektnr",
-            "arbetsplats",
-            "kund"
-        )
+        fields = ("projektnr", "arbetsplats", "kund")
         widgets = {
-            "projektnr": forms.NumberInput(
-                attrs={
-                    "class": "form-control"
-                }
-            ),
-            "arbetsplats": forms.Select(
-                attrs={
-                    "class": "form-control"
-                }
-            ),
-            "kund": forms.Select(
-                attrs={
-                    "class": "form-control"
-                }
-            )
+            "projektnr": forms.NumberInput(attrs={"class": "form-control"}),
+            "arbetsplats": forms.Select(attrs={"class": "form-control"}),
+            "kund": forms.Select(attrs={"class": "form-control"}),
+        }
+
+
+class TidForm(forms.ModelForm):
+    class Meta:
+        model = Tid
+        fields = ("datum", "projektnr", "timmar", "arbete", "sjuk", "tidbank")
+        widgets = {
+            "datum": forms.DateInput(attrs={"class": "form-control"}),
+            "projektnr": forms.Select(attrs={"class": "form-control"}),
+            "timmar": forms.NumberInput(attrs={"class": "form-control"}),
+            "arbete": forms.CheckboxInput(),
+            "sjuk": forms.CheckboxInput(),
+            "tidbank": forms.CheckboxInput(),
         }
