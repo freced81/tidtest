@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.urls import reverse
 
@@ -49,6 +50,23 @@ class Tid(models.Model):
 
     def __str__(self):
         return str(self.datum)
+
+    def get_weekday(self):
+        weekday = datetime.date.weekday(self.datum)
+        if weekday == 0:
+            return "Måndag"
+        elif weekday == 1:
+            return "Tisdag"
+        elif weekday == 2:
+            return "Onsdag"
+        elif weekday == 3:
+            return "Torsdag"
+        elif weekday == 4:
+            return "Fredag"
+        elif weekday == 5:
+            return "Lördag"
+        elif weekday == 6:
+            return "Söndag"
 
     def get_absolute_url(self):
         return reverse("tid_rapport:tid_detail", kwargs={"pk": self.pk})

@@ -16,7 +16,7 @@
                 {% for tid in tider %}
                     <tr>
                         <th scope="col">{{ forloop.counter }}</th>
-                        <td><a href="{{ tid.get_absolute_url }}">{{ tid.datum }}</a></td>
+                        <td><a href="{{ tid.get_absolute_url }}">{{ tid.get_weekday }}<br>{{ tid.datum }}</a></td>
                         <td>{{ tid.projektnr }}</td>
                         <td>{{ tid.timmar }}
                             {% if tid.sjuk %}
