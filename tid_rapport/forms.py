@@ -58,3 +58,8 @@ class TidForm(forms.ModelForm):
             "sjuk": forms.CheckboxInput(),
             "tidbank": forms.CheckboxInput(),
         }
+
+
+class TidRapportForm(forms.Form):
+    week = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control"}))
+

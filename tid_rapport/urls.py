@@ -21,6 +21,7 @@ from .views import (
     CreateTid,
     TidUpdate,
     TidDelete,
+    tid_rapport
 )
 
 app_name = "tid_rapport"
@@ -61,4 +62,6 @@ urlpatterns = [
     path("tid/create/", CreateTid.as_view(), name="tid_create"),
     path("tid/<int:pk>/update/", TidUpdate.as_view(), name="tid_update"),
     path("tid/<int:pk>/delete/", TidDelete.as_view(), name="tid_delete"),
+
+    path("tidrapport/", tid_rapport, name="tidrapport")
 ]

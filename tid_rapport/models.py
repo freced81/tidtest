@@ -54,7 +54,7 @@ class Tid(models.Model):
     def get_week(self):
         iso = datetime.date.isocalendar(self.datum)
         week = iso[1]
-        return week
+        return str(week)
 
     def get_weekday(self):
         weekday = datetime.date.weekday(self.datum)

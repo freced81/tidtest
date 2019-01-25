@@ -1,3 +1,5 @@
+import datetime
+from django.shortcuts import render
 from django.views.generic import (
     TemplateView,
     ListView,
@@ -8,7 +10,7 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 from .models import Kund, Arbetsplats, Projekt, Tid
-from .forms import KundForm, ArbetsplatsForm, ProjektForm, TidForm
+from .forms import KundForm, ArbetsplatsForm, ProjektForm, TidForm, TidRapportForm
 
 
 class IndexView(TemplateView):
@@ -141,3 +143,23 @@ class TidDelete(DeleteView):
     template_name = "tid/tid_confirm_delete.html"
     model = Tid
     success_url = reverse_lazy("tid_rapport:tid_list")
+
+
+# Tidrapport
+def tid_rapport(request):
+
+    if request.method == 'POST':
+
+        form = TidRapportForm(request.POST)
+
+        if form.is_valid():
+
+            return render(request, 'tidrapport.html', {'form': form})
+
+    else:
+        form = TidRapportForm()
+
+    return render(request, 'tidrapport.html', {'form': form})
+
+
+
