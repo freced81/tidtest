@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Profil{% endblock %}
+{% block body_block %}
+    <h1 class="card-title">Användarprofil</h1>
+    <p>Användar namn: {{ user.username }}</p>
+    <p>Förnamn: {{ user.first_name }}</p>
+    <p>Efternamn: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth.decorators import login_required
 from .views import (
     IndexView,
     ArbetsplatsList,
@@ -21,7 +22,7 @@ from .views import (
 app_name = "tid_rapport"
 
 urlpatterns = [
-    path("start/", IndexView.as_view(), name="index"),
+    path("start/", login_required(IndexView.as_view()), name="index"),
     # Arbetsplats
     path("arbetsplats/list/", ArbetsplatsList.as_view(), name="arbetsplats_list"),
     path(
