@@ -1,65 +1,52 @@
 from django import forms
 
-from .models import Kund, Arbetsplats, Projekt, Tid
-
-
-class KundForm(forms.ModelForm):
-    class Meta:
-        model = Kund
-        fields = ("kund_namn", "kund_kontakt_person", "kund_telefonnr")
-        widgets = {
-            "kund_namn": forms.TextInput(
-                attrs={"class": "form-control", "type": "text"}
-            ),
-            "kund_kontakt_person": forms.TextInput(attrs={"class": "form-control"}),
-            "kund_telefonnr": forms.TextInput(attrs={"class": "form-control"}),
-        }
+from .models import Arbetsplats, Projekt, Tid
 
 
 class ArbetsplatsForm(forms.ModelForm):
     class Meta:
         model = Arbetsplats
-        fields = (
-            "arbetsplats_namn",
-            "arbetsplats_kontakt_person",
-            "arbetsplats_telefonnr",
-        )
+        fields = ("arbetsplats_namn",)
         widgets = {
             "arbetsplats_namn": forms.TextInput(
                 attrs={"class": "form-control", "type": "text"}
-            ),
-            "arbetsplats_kontakt_person": forms.TextInput(
-                attrs={"class": "form-control"}
-            ),
-            "arbetsplats_telefonnr": forms.TextInput(attrs={"class": "form-control"}),
+            )
         }
 
 
 class ProjektForm(forms.ModelForm):
     class Meta:
         model = Projekt
-        fields = ("projektnr", "arbetsplats", "kund")
-        widgets = {
-            "projektnr": forms.NumberInput(attrs={"class": "form-control"}),
-            "arbetsplats": forms.Select(attrs={"class": "form-control"}),
-            "kund": forms.Select(attrs={"class": "form-control"}),
-        }
+        fields = ("projektnr",)
+        widgets = {"projektnr": forms.TextInput(attrs={"class": "form-control"})}
 
 
 class TidForm(forms.ModelForm):
     class Meta:
         model = Tid
-        fields = ("datum", "projektnr", "timmar", "arbete", "sjuk", "tidbank")
+        fields = (
+            "ar",
+            "vecka",
+            "projektnr",
+            "mon",
+            "tis",
+            "ons",
+            "tors",
+            "fre",
+            "lor",
+            "son",
+            "trakt",
+        )
         widgets = {
-            "datum": forms.DateInput(attrs={"class": "form-control"}),
+            "ar": forms.NumberInput(attrs={"class": "form-control"}),
+            "vecka": forms.NumberInput(attrs={"class": "form-control"}),
             "projektnr": forms.Select(attrs={"class": "form-control"}),
-            "timmar": forms.NumberInput(attrs={"class": "form-control"}),
-            "arbete": forms.CheckboxInput(),
-            "sjuk": forms.CheckboxInput(),
-            "tidbank": forms.CheckboxInput(),
+            "mon": forms.NumberInput(attrs={"class": "form-control"}),
+            "tis": forms.NumberInput(attrs={"class": "form-control"}),
+            "ons": forms.NumberInput(attrs={"class": "form-control"}),
+            "tors": forms.NumberInput(attrs={"class": "form-control"}),
+            "fre": forms.NumberInput(attrs={"class": "form-control"}),
+            "lor": forms.NumberInput(attrs={"class": "form-control"}),
+            "son": forms.NumberInput(attrs={"class": "form-control"}),
+            "trakt": forms.NumberInput(attrs={"class": "form-control"}),
         }
-
-
-class TidRapportForm(forms.Form):
-    week = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control"}))
-

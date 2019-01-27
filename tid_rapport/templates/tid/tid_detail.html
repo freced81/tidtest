@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
     {% block title %}Tid{% endblock %}
     {% block body_block %}
-        <h3 class="card-title">Datum: {{ object.datum }}</h3>
-        <p class="card-test">Projektnummer: {{ object.projektnr }}</p>
-        <p class="card-text">Antal timmar: {{ object.timmar }}
-            {% if object.sjuk %}
-                ,Sjuk
-            {% elif object.tidbank %}
-                ,Tidbank
-            {% endif %}
-        </p>
+        <h3 class="card-title">År:{{ object.ar }}   Vecka: {{ object.vecka }}</h3>
+        <p class="card-text">Projektnummer: {{ object.projektnr }}</p>
+        <p class="card-text">Måndag: {{ object.mon }}</p>
+        <p class="card-text">Tisdag: {{ object.tis }}</p>
+        <p class="card-text">Onsdag: {{ object.ons }}</p>
+        <p class="card-text">Torsdag: {{ object.tors }}</p>
+        <p class="card-text">Fredag: {{ object.fre }}</p>
+        <p class="card-text">Lördag: {{ object.lor }}</p>
+        <p class="card-text">Söndag: {{ object.son }}</p>
+        <p class="card-text">Trakt: {{ object.trakt }}</p>
     {% endblock %}

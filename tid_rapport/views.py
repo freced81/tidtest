@@ -1,5 +1,3 @@
-import datetime
-from django.shortcuts import render
 from django.views.generic import (
     TemplateView,
     ListView,
@@ -9,44 +7,12 @@ from django.views.generic import (
     DetailView,
 )
 from django.urls import reverse_lazy
-from .models import Kund, Arbetsplats, Projekt, Tid
-from .forms import KundForm, ArbetsplatsForm, ProjektForm, TidForm, TidRapportForm
+from .models import Arbetsplats, Projekt, Tid
+from .forms import ArbetsplatsForm, ProjektForm, TidForm
 
 
 class IndexView(TemplateView):
     template_name = "index.html"
-
-
-# Kund
-class KundList(ListView):
-    template_name = "kund/kund_list.html"
-    model = Kund
-    context_object_name = "kunder"
-
-
-class KundDetail(DetailView):
-    template_name = "kund/kund_detail.html"
-    model = Kund
-
-
-class CreateKund(CreateView):
-    template_name = "kund/kund_form.html"
-    model = Kund
-    form_class = KundForm
-    success_url = reverse_lazy("tid_rapport:kund_list")
-
-
-class KundUpdate(UpdateView):
-    template_name = "kund/kund_form.html"
-    model = Kund
-    form_class = KundForm
-    success_url = reverse_lazy("tid_rapport:kund_list")
-
-
-class KundDelete(DeleteView):
-    template_name = "kund/kund_confirm_delete.html"
-    model = Kund
-    success_url = reverse_lazy("tid_rapport:kund_list")
 
 
 # Arbetsplats
@@ -143,23 +109,3 @@ class TidDelete(DeleteView):
     template_name = "tid/tid_confirm_delete.html"
     model = Tid
     success_url = reverse_lazy("tid_rapport:tid_list")
-
-
-# Tidrapport
-def tid_rapport(request):
-
-    if request.method == 'POST':
-
-        form = TidRapportForm(request.POST)
-
-        if form.is_valid():
-
-            return render(request, 'tidrapport.html', {'form': form})
-
-    else:
-        form = TidRapportForm()
-
-    return render(request, 'tidrapport.html', {'form': form})
-
-
-

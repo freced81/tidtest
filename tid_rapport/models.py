@@ -3,22 +3,8 @@ from django.db import models
 from django.urls import reverse
 
 
-class Kund(models.Model):
-    kund_namn = models.CharField(max_length=100)
-    kund_kontakt_person = models.CharField(max_length=100, blank=True)
-    kund_telefonnr = models.CharField(max_length=100, blank=True)
-
-    def __str__(self):
-        return str(self.kund_namn)
-
-    def get_absolute_url(self):
-        return reverse("tid_rapport:kund_detail", kwargs={"pk": self.pk})
-
-
 class Arbetsplats(models.Model):
     arbetsplats_namn = models.CharField(max_length=100)
-    arbetsplats_kontakt_person = models.CharField(max_length=100, blank=True)
-    arbetsplats_telefonnr = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return str(self.arbetsplats_namn)
@@ -28,9 +14,7 @@ class Arbetsplats(models.Model):
 
 
 class Projekt(models.Model):
-    projektnr = models.IntegerField(default=1900)
-    arbetsplats = models.ForeignKey("Arbetsplats", on_delete=models.CASCADE, null=True)
-    kund = models.ForeignKey("Kund", on_delete=models.CASCADE, null=True)
+    projektnr = models.CharField(max_length=100)
 
     def __str__(self):
         return str(self.projektnr)
@@ -41,37 +25,26 @@ class Projekt(models.Model):
 
 class Tid(models.Model):
 
-    datum = models.DateField()
+    ar = models.IntegerField(default=2019)
+    vecka = models.IntegerField(default=1)
     projektnr = models.ForeignKey("Projekt", on_delete=models.CASCADE)
-    timmar = models.IntegerField(default=0)
-    arbete = models.BooleanField(default=True)
-    sjuk = models.BooleanField(default=False)
-    tidbank = models.BooleanField(default=False)
+    mon = models.IntegerField(default=0)
+    tis = models.IntegerField(default=0)
+    ons = models.IntegerField(default=0)
+    tors = models.IntegerField(default=0)
+    fre = models.IntegerField(default=0)
+    lor = models.IntegerField(default=0)
+    son = models.IntegerField(default=0)
+    trakt = models.IntegerField(default=0)
 
     def __str__(self):
-        return str(self.datum)
+        return str(self.vecka)
 
-    def get_week(self):
-        iso = datetime.date.isocalendar(self.datum)
-        week = iso[1]
-        return str(week)
-
-    def get_weekday(self):
-        weekday = datetime.date.weekday(self.datum)
-        if weekday == 0:
-            return "Måndag"
-        elif weekday == 1:
-            return "Tisdag"
-        elif weekday == 2:
-            return "Onsdag"
-        elif weekday == 3:
-            return "Torsdag"
-        elif weekday == 4:
-            return "Fredag"
-        elif weekday == 5:
-            return "Lördag"
-        elif weekday == 6:
-            return "Söndag"
+    def get_tot(self):
+        tot = (
+            self.mon + self.tis + self.ons + self.tors + self.fre + self.lor + self.son
+        )
+        return tot
 
     def get_absolute_url(self):
         return reverse("tid_rapport:tid_detail", kwargs={"pk": self.pk})

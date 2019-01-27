@@ -5,33 +5,38 @@
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th class="text-warning" scope="col">#</th>
-                    <th class="text-warning" scope="col">Datum</th>
-                    <th class="text-warning" scope="col">Projektnummer</th>
-                    <th class="text-warning" scope="col">Timmar</th>
+                    <th class="text-warning" scope="col">Vecka</th>
+                    <th class="text-warning" scope="col">Beskrivning</th>
+                    <th class="text-warning" scope="col">Mån</th>
+                    <th class="text-warning" scope="col">Tis</th>
+                    <th class="text-warning" scope="col">Ons</th>
+                    <th class="text-warning" scope="col">Tors</th>
+                    <th class="text-warning" scope="col">fre</th>
+                    <th class="text-warning" scope="col">Lör</th>
+                    <th class="text-warning" scope="col">Sön</th>
                     <th class="text-warning" scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 {% for tid in tider %}
                     <tr>
-                        <th scope="col">{{ forloop.counter }}</th>
-                        <td><a href="{{ tid.get_absolute_url }}">{{ tid.get_weekday }}<br>{{ tid.datum }}</a></td>
+                        <td><a href="{{ tid.get_absolute_url }}">{{ tid.vecka }}</a></td>
                         <td>{{ tid.projektnr }}</td>
-                        <td>{{ tid.timmar }}
-                            {% if tid.sjuk %}
-                                ,Sjuk
-                            {% elif tid.tidbank %}
-                                ,Tidbank
-                            {% endif %}
-                        </td>
-                        <td><a class="text-success" href="{{ tid.get_absolute_url }}update/">Uppdatera</a>,
-                            <a class="text-danger" href="{{ tid.get_absolute_url }}delete/">Radera</a>,
-                            <a class="text-warning" href="{% url 'tid_rapport:tid_create' %}">Skapa ny</a>
+                        <td>{{ tid.mon }}</td>
+                        <td>{{ tid.tis }}</td>
+                        <td>{{ tid.ons }}</td>
+                        <td>{{ tid.tors }}</td>
+                        <td>{{ tid.fre }}</td>
+                        <td>{{ tid.lor }}</td>
+                        <td>{{ tid.son }}</td>
+                        <td>
+                            <a class="text-success" href="{{ tid.get_absolute_url }}update/">Uppdatera, </a>
+                            <a class="text-danger" href="{{ tid.get_absolute_url }}delete/">Radera</a>
                         </td>
 
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <a class="btn btn-outline-warning" href="{% url 'tid_rapport:tid_create' %}">Skapa ny</a>
     {% endblock %}

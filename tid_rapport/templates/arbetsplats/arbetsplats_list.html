@@ -7,8 +7,6 @@
                 <tr>
                     <th class="text-warning" scope="col">#</th>
                     <th class="text-warning" scope="col">Arbetsplats</th>
-                    <th class="text-warning" scope="col">Kontakt</th>
-                    <th class="text-warning" scope="col">Telefonnummer</th>
                     <th class="text-warning" scope="col"></th>
                 </tr>
             </thead>
@@ -16,16 +14,13 @@
                 {% for arbetsplats in arbetsplatser %}
                     <tr>
                         <th scope="col">{{ forloop.counter }}</th>
-                        <td><a href="{{ arbetsplats.get_absolute_url }}">{{ arbetsplats.arbetsplats_namn }}</a></td>
-                        <td>{{ arbetsplats.arbetsplats_kontakt_person }}</td>
-                        <td>{{ arbetsplats.arbetsplats_telefonnr }}</td>
+                        <td>{{ arbetsplats.arbetsplats_namn }}</td>
                         <td><a class="text-success" href="{{ arbetsplats.get_absolute_url }}update/">Uppdatera</a>,
                             <a class="text-danger" href="{{ arbetsplats.get_absolute_url }}delete/">Radera</a>,
-                            <a class="text-warning" href="{% url 'tid_rapport:arbetsplats_create' %}">Skapa ny</a>
                         </td>
-
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <a class="btn btn-outline-warning" href="{% url 'tid_rapport:arbetsplats_create' %}">Skapa ny</a>
     {% endblock %}

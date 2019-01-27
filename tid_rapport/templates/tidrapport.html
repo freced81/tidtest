@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
     {% block title %}Tidrapport{% endblock %}
     {% block body_block %}
-        <h2 class="card-title" ></h2>
+        <h2 class="card-title"></h2>
         <form method="post">{% csrf_token %}
             {{ form.as_p }}
         <input class="btn btn-outline-success" type="submit" value="Hämta">
@@ -11,22 +11,18 @@
             <thead class="thead-dark">
                 <tr>
                     <th class="text-warning" scope="col">Vecka</th>
-                    <th class="text-warning" scope="col">Projektnummer</th>
-                    <th class="text-warning" scope="col">Arbetsplats</th>
                 </tr>
             </thead>
             <tbody>
                     <tr>
-                        <td>31</td>
-                        <td>1954</td>
-                        <td>Pfiser</td>
+                        <td>2</td>
                     </tr>
             </tbody>
         </table>
         <table class="table table-hover">
             <thead class="thead-dark">
                  <tr>
-                    <th class="text-warning" scope="col">Typ</th>
+                    <th class="text-warning" scope="col">Beskrivning</th>
                     <th class="text-warning" scope="col">Mån</th>
                     <th class="text-warning" scope="col">Tis</th>
                     <th class="text-warning" scope="col">Ons</th>
@@ -37,36 +33,32 @@
                 </tr>
             </thead>
             <tbody>
+                {% for week in weekquery %}
                 <tr>
-                    <th class="text-warning">Pfiser</th>
-                    <td>8</td>
-                    <td>8</td>
                     <td></td>
-                    <td>8</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    {% if week.get_weekday == "Måndag" %}
+                        <td>{{ week.timmar }}</td>
+                    {% endif %}
+                    {% if week.get_weekday == "Tisdag" %}
+                        <td>{{ week.timmar }}</td>
+                    {% endif %}
+                    {% if week.get_weekday == "Onsdag" %}
+                        <td>{{ week.timmar }}</td>
+                    {% endif %}
+                    {% if week.get_weekday == "Torsdag" %}
+                        <td>{{ week.timmar }}</td>
+                    {% endif %}
+                    {% if week.get_weekday == "Fredag" %}
+                        <td>{{ week.timmar }}</td>
+                    {% endif %}
+                    {% if week.get_weekday == "Lördag" %}
+                        <td>{{ week.timmar }}</td>
+                    {% endif %}
+                    {% if week.get_weekday == "Söndag" %}
+                        <td>{{ week.timmar }}</td>
+                    {% endif %}
                 </tr>
-                <tr>
-                    <th class="text-warning">Sjuk</th>
-                    <td></td>
-                    <td></td>
-                    <td>8</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th class="text-warning">Tidbank</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>8</td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     {% endblock %}
