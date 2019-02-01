@@ -24,6 +24,7 @@ class ProjektForm(forms.ModelForm):
 class TidForm(forms.ModelForm):
     class Meta:
         model = Tid
+        exclude = ['user']
         fields = (
             "ar",
             "vecka",

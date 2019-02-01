@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 
 
 class Arbetsplats(models.Model):
@@ -24,7 +25,7 @@ class Projekt(models.Model):
 
 
 class Tid(models.Model):
-
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ar = models.IntegerField(default=2019)
     vecka = models.IntegerField(default=1)
     projektnr = models.ForeignKey("Projekt", on_delete=models.CASCADE)
