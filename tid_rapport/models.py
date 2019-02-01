@@ -1,11 +1,16 @@
 import datetime
 from django.db import models
 from django.urls import reverse
-from django.conf import settings
+from django.contrib.auth import get_user_model
 
 
 class Arbetsplats(models.Model):
-    arbetsplats_namn = models.CharField(max_length=100)
+
+
+    class Meta:
+        verbose_name_plural = "Arbetsplatser"
+
+    arbetsplats_namn = models.CharField(max_length=100, verbose_name="Arbetsplats")
 
     def __str__(self):
         return str(self.arbetsplats_namn)
@@ -15,7 +20,11 @@ class Arbetsplats(models.Model):
 
 
 class Projekt(models.Model):
-    projektnr = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = "Projekt"
+
+    projektnr = models.CharField(max_length=100, verbose_name="Beskrivning")
 
     def __str__(self):
         return str(self.projektnr)
@@ -25,18 +34,23 @@ class Projekt(models.Model):
 
 
 class Tid(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    ar = models.IntegerField(default=2019)
-    vecka = models.IntegerField(default=1)
-    projektnr = models.ForeignKey("Projekt", on_delete=models.CASCADE)
-    mon = models.IntegerField(default=0)
-    tis = models.IntegerField(default=0)
-    ons = models.IntegerField(default=0)
-    tors = models.IntegerField(default=0)
-    fre = models.IntegerField(default=0)
-    lor = models.IntegerField(default=0)
-    son = models.IntegerField(default=0)
-    trakt = models.IntegerField(default=0)
+
+
+    class Meta:
+        verbose_name_plural = "Tider"
+
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name="Användare")
+    ar = models.IntegerField(default=2019, verbose_name="År")
+    vecka = models.IntegerField(default=1, verbose_name="Vecka")
+    projektnr = models.ForeignKey("Projekt", on_delete=models.CASCADE, verbose_name="Beskrivning")
+    mon = models.IntegerField(default=0, verbose_name="Måndag")
+    tis = models.IntegerField(default=0, verbose_name="Tisdag")
+    ons = models.IntegerField(default=0, verbose_name="Onsdag")
+    tors = models.IntegerField(default=0, verbose_name="Torsdag")
+    fre = models.IntegerField(default=0, verbose_name="Fredaq")
+    lor = models.IntegerField(default=0, verbose_name="Lördag")
+    son = models.IntegerField(default=0, verbose_name="Söndag")
+    trakt = models.IntegerField(default=0, verbose_name="Trakt")
 
     def __str__(self):
         return str(self.vecka)

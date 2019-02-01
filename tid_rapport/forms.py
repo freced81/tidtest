@@ -24,8 +24,8 @@ class ProjektForm(forms.ModelForm):
 class TidForm(forms.ModelForm):
     class Meta:
         model = Tid
-        exclude = ['user']
         fields = (
+            "user",
             "ar",
             "vecka",
             "projektnr",
@@ -39,6 +39,7 @@ class TidForm(forms.ModelForm):
             "trakt",
         )
         widgets = {
+            "user": forms.Select(attrs={"class": "form-control"}),
             "ar": forms.NumberInput(attrs={"class": "form-control"}),
             "vecka": forms.NumberInput(attrs={"class": "form-control"}),
             "projektnr": forms.Select(attrs={"class": "form-control"}),
@@ -51,3 +52,8 @@ class TidForm(forms.ModelForm):
             "son": forms.NumberInput(attrs={"class": "form-control"}),
             "trakt": forms.NumberInput(attrs={"class": "form-control"}),
         }
+
+
+class TidSedelForm(forms.Form):
+    start_vecka = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control"}))
+    stopp_vecka = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control"}))
