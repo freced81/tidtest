@@ -12,7 +12,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from .models import Arbetsplats, Projekt, Tid
 from .forms import ArbetsplatsForm, ProjektForm, TidForm, TidSedelForm
-from .tidsedel import skapa_tidsedel
+from tid_rapport.tidsedel import skapa_tidsedel
+
 
 class IndexView(TemplateView):
     template_name = "index.html"
@@ -114,9 +115,6 @@ class TidDelete(DeleteView):
     success_url = reverse_lazy("tid_rapport:tid_list")
 
 
-def skapa_tidedel(start, stopp):
-    return
-
 @login_required
 def tidsedel(request):
 
@@ -127,7 +125,7 @@ def tidsedel(request):
         if form.is_valid():
             start = form.cleaned_data['start_vecka']
             stopp = form.cleaned_data['stopp_vecka']
-            skapa_tidedel(start, stopp)
+            skapa_tidsedel(start, stopp)
             return HttpResponseRedirect('../start')
 
     else:

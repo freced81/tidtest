@@ -2,56 +2,28 @@
     {% block title %}Tid{% endblock %}
     {% block body_block %}
         <h2 class="card-title" >Tid</h2>
-        {% for tid in tider %}
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th class="text-warning" scope="col">Vecka</th>
                     <th class="text-warning" scope="col">Beskrivning</th>
-                    <th class="text-warning" scope="col">Användare</th>
+                    <th class="text-warning" scope="col">Totalt</th>
                     <th class="text-warning" scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-
+                    {% for tid in tider %}
                     <tr>
                         <td><a href="{{ tid.get_absolute_url }}">{{ tid.vecka }}</a></td>
                         <td>{{ tid.projektnr }}</td>
-                        <td>{{ tid.user }}</td>
+                        <td>{{ tid.get_tot }} Tim</td>
                         <td>
                             <a class="text-success" href="{{ tid.get_absolute_url }}update/">Uppdatera, </a>
                             <a class="text-danger" href="{{ tid.get_absolute_url }}delete/">Radera</a>
                         </td>
                     </tr>
+                    {% endfor %}
             </tbody>
         </table>
-        <table class="table table-hover">
-            <thead class="thead-dark">
-                <tr>
-
-                    <th class="text-warning" scope="col">Mån</th>
-                    <th class="text-warning" scope="col">Tis</th>
-                    <th class="text-warning" scope="col">Ons</th>
-                    <th class="text-warning" scope="col">Tors</th>
-                    <th class="text-warning" scope="col">fre</th>
-                    <th class="text-warning" scope="col">Lör</th>
-                    <th class="text-warning" scope="col">Sön</th>
-                </tr>
-            </thead>
-            <tbody>
-                    <tr>
-                        <td>{{ tid.mon }}</td>
-                        <td>{{ tid.tis }}</td>
-                        <td>{{ tid.ons }}</td>
-                        <td>{{ tid.tors }}</td>
-                        <td>{{ tid.fre }}</td>
-                        <td>{{ tid.lor }}</td>
-                        <td>{{ tid.son }}</td>
-                    </tr>
-            </tbody>
-        </table>
-        <br>
-        <br>
-        {% endfor %}
         <a class="btn btn-outline-warning" href="{% url 'tid_rapport:tid_create' %}">Skapa ny</a>
     {% endblock %}
