@@ -1,3 +1,4 @@
+import os
 from django.views.generic import (
     TemplateView,
     ListView,
@@ -6,6 +7,7 @@ from django.views.generic import (
     DeleteView,
     DetailView,
 )
+from django.views.static import serve
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -126,7 +128,8 @@ def tidsedel(request):
             start = form.cleaned_data['start_vecka']
             stopp = form.cleaned_data['stopp_vecka']
             skapa_tidsedel(start, stopp)
-            return HttpResponseRedirect('../start')
+            filepath = "tid_rapport/static/tid_rapport/tmp/TidsedelV" + str(start) + "-" + str(stopp) + ".xlsx"
+            return serve(request, os.path.basename(filepath), os.path.dirname(filepath))                  #  HttpResponseRedirect('../start')
 
     else:
         form = TidSedelForm()
