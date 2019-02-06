@@ -11,6 +11,7 @@ from .settingsexl import (
     formula_tot,
     summa_tot,
 )
+
 from .models import Tid
 
 
@@ -24,7 +25,8 @@ def height_as_mm(mm):
     return result
 
 
-def skapa_tidsedel(start, stopp):
+def skapa_tidsedel(start, stopp, response):
+
     queryset = Tid.objects.filter(vecka__range=(start, stopp))
 
     wb = openpyxl.Workbook()
@@ -107,8 +109,18 @@ def skapa_tidsedel(start, stopp):
     for item in merge_cells_settings:
         sheet.merge_cells(item)
 
-    sheet['A4'] = 'Fredrik Cederlund'
+    querystart = Tid.objects.filter(vecka__exact=start)
+    querystopp = Tid.objects.filter(vecka__exact=stopp)
 
+    for query in querystart:
+        sheet['A4'] = query.get_full_name()
+        sheet['H6'] = str(query.projektnr.arbetsplats)
+        startvecka = str(query.vecka) + '-'
+        sheet['O2'] = query.vecka
+
+    for query in querystopp:
+        if start != stopp:
+            sheet['O2'] = startvecka + str(query.vecka)
     i = 8
     for query in queryset:
         sheet['A' + str(i)] = query.vecka
@@ -123,6 +135,5 @@ def skapa_tidsedel(start, stopp):
         sheet['P' + str(i)] = query.trakt
         i += 1
 
-    dest_filename = "tid_rapport/static/tid_rapport/tmp/TidsedelV" + str(start) + "-" + str(stopp) + ".xlsx"
-    wb.save(filename=dest_filename)
-
+    wb.save(filename=response)
+    return response
