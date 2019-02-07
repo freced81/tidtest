@@ -17,8 +17,10 @@ class ArbetsplatsForm(forms.ModelForm):
 class ProjektForm(forms.ModelForm):
     class Meta:
         model = Projekt
-        fields = ("projektnr",)
-        widgets = {"projektnr": forms.TextInput(attrs={"class": "form-control"})}
+        fields = ("projektnr", 'arbetsplats',)
+        widgets = {"projektnr": forms.TextInput(attrs={"class": "form-control"}),
+                   "arbetsplats": forms.Select(attrs={"class": "form-control"}),
+                   }
 
 
 class TidForm(forms.ModelForm):

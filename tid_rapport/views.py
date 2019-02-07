@@ -7,9 +7,8 @@ from django.views.generic import (
     DeleteView,
     DetailView,
 )
-from django.views.static import serve
+from django.http.response import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from .models import Arbetsplats, Projekt, Tid
@@ -127,9 +126,17 @@ def tidsedel(request):
         if form.is_valid():
             start = form.cleaned_data['start_vecka']
             stopp = form.cleaned_data['stopp_vecka']
-            skapa_tidsedel(start, stopp)
-            filepath = "tid_rapport/static/tid_rapport/tmp/TidsedelV" + str(start) + "-" + str(stopp) + ".xlsx"
-            return serve(request, os.path.basename(filepath), os.path.dirname(filepath))                  #  HttpResponseRedirect('../start')
+            query = Tid.objects.filter(vecka__exact=start)
+            for q in query:
+                ar = q.ar
+            if start == stopp:
+                filepath = "Tidsedel" + str(ar) + "V" + str(start) + ".xlsx"
+            else:
+                filepath = "Tidsedel" + str(ar) + "V" + str(start) + "-" + str(stopp) + ".xlsx"
+            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename=' + filepath
+
+            return skapa_tidsedel(start, stopp, response)
 
     else:
         form = TidSedelForm()
