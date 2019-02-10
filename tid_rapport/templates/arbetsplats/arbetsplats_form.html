@@ -1,8 +1,0 @@
-{% extends 'base.html' %}
-{% block title %}Arbetsplats{% endblock %}
-{% block body_block %}
-    <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input class="btn btn-outline-success" type="submit" value="Spara">
-    </form>
-{% endblock %}

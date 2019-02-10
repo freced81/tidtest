@@ -1,31 +1,18 @@
-import datetime
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
-
-
-class Arbetsplats(models.Model):
-
-    class Meta:
-        verbose_name_plural = "Arbetsplatser"
-
-    arbetsplats_namn = models.CharField(max_length=100, verbose_name="Arbetsplats", default="")
-
-    def __str__(self):
-        return str(self.arbetsplats_namn)
-
-    def get_absolute_url(self):
-        return reverse("tid_rapport:arbetsplats_detail", kwargs={"pk": self.pk})
 
 
 class Projekt(models.Model):
 
     class Meta:
         verbose_name_plural = "Projekt"
+        ordering = ['projektnr']
 
-    projektnr = models.CharField(max_length=100, verbose_name="Beskrivning")
-    arbetsplats = models.ForeignKey("Arbetsplats", on_delete=models.CASCADE)
+    projektnr = models.CharField(max_length=100, verbose_name="Projektnummer")
+    anlaggning = models.CharField(max_length=100, verbose_name="Anläggning", blank=True)
+    kund = models.CharField(max_length=100, verbose_name="Kund", blank=True)
+    ort = models.CharField(max_length=100, verbose_name="Ort", blank=True)
 
     def __str__(self):
         return str(self.projektnr)
@@ -39,6 +26,7 @@ class Tid(models.Model):
 
     class Meta:
         verbose_name_plural = "Tider"
+        ordering = ['-ar', 'vecka']
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Användare")
     ar = models.IntegerField(default=2019, verbose_name="År")
@@ -51,18 +39,15 @@ class Tid(models.Model):
     fre = models.IntegerField(default=0, verbose_name="Fredaq")
     lor = models.IntegerField(default=0, verbose_name="Lördag")
     son = models.IntegerField(default=0, verbose_name="Söndag")
+    restid = models.IntegerField(default=0, verbose_name="Restid")
     trakt = models.IntegerField(default=0, verbose_name="Trakt")
 
     def __str__(self):
         return str(self.vecka)
 
-    def user_is(self):
-        self.user = get_user_model()
-        return self.user
-
     def get_tot(self):
         tot = (
-            self.mon + self.tis + self.ons + self.tors + self.fre + self.lor + self.son
+            self.mon + self.tis + self.ons + self.tors + self.fre + self.lor + self.son + self.restid
         )
         return tot
 

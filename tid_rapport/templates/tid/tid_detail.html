@@ -2,7 +2,7 @@
     {% block title %}Tid{% endblock %}
     {% block body_block %}
         <h3 class="card-title">År:{{ object.ar }}   Vecka: {{ object.vecka }}</h3>
-        <p class="card-text">Projektnummer: {{ object.projektnr }}</p>
+        <p class="card-text">Projekt: {{ object.projektnr }}, {{ object.projektnr.anlaggning }}</p>
         <p class="card-text">Måndag: {{ object.mon }}</p>
         <p class="card-text">Tisdag: {{ object.tis }}</p>
         <p class="card-text">Onsdag: {{ object.ons }}</p>
@@ -10,5 +10,6 @@
         <p class="card-text">Fredag: {{ object.fre }}</p>
         <p class="card-text">Lördag: {{ object.lor }}</p>
         <p class="card-text">Söndag: {{ object.son }}</p>
+        <p class="card-text">Restid: {{ object.restid }}</p>
         <p class="card-text">Trakt: {{ object.trakt }}</p>
     {% endblock %}

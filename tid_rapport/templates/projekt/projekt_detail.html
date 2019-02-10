@@ -2,4 +2,7 @@
     {% block title %}Projekt{% endblock %}
     {% block body_block %}
         <h3 class="card-title">Projektnummer: {{ object.projektnr }}</h3>
+        <p>Anläggning: {{ object.anlaggning }}</p>
+        <p>Ort: {{ object.ort }}</p>
+        <p>Kund: {{ object.kund }}</p>
     {% endblock %}

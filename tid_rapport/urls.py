@@ -2,11 +2,6 @@ from django.urls import path
 from django.contrib.auth.decorators import login_required
 from .views import (
     IndexView,
-    ArbetsplatsList,
-    CreateArbetsplats,
-    ArbetsplatsDelete,
-    ArbetsplatsUpdate,
-    ArbetsplatsDetail,
     ProjektList,
     ProjektDetail,
     CreateProjekt,
@@ -24,22 +19,6 @@ app_name = "tid_rapport"
 
 urlpatterns = [
     path("start/", login_required(IndexView.as_view()), name="index"),
-    # Arbetsplats
-    path("arbetsplats/list/", login_required(ArbetsplatsList.as_view()), name="arbetsplats_list"),
-    path(
-        "arbetsplats/<int:pk>/", login_required(ArbetsplatsDetail.as_view()), name="arbetsplats_detail"
-    ),
-    path("arbetsplats/create/", login_required(CreateArbetsplats.as_view()), name="arbetsplats_create"),
-    path(
-        "arbetsplats/<int:pk>/update/",
-        login_required(ArbetsplatsUpdate.as_view()),
-        name="arbetsplats_update",
-    ),
-    path(
-        "arbetsplats/<int:pk>/delete/",
-        login_required(ArbetsplatsDelete.as_view()),
-        name="arbetsplats_delete",
-    ),
     # Projekt
     path("projekt/list/", login_required(ProjektList.as_view()), name="projekt_list"),
     path("projekt/<int:pk>/", login_required(ProjektDetail.as_view()), name="projekt_detail"),

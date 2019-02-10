@@ -14,12 +14,14 @@
             <tbody>
                     {% for tid in tider %}
                     <tr>
-                        <td><a href="{{ tid.get_absolute_url }}">{{ tid.vecka }}</a></td>
-                        <td>{{ tid.projektnr }}</td>
-                        <td>{{ tid.get_tot }} Tim</td>
+                        <td><a href="{{ tid.get_absolute_url }}">{{ tid.ar }} v.{{ tid.vecka }}</a></td>
+                        <td>{{ tid.projektnr }}, {{ tid.projektnr.anlaggning }}</td>
                         <td>
-                            <a class="text-success" href="{{ tid.get_absolute_url }}update/">Uppdatera, </a>
-                            <a class="text-danger" href="{{ tid.get_absolute_url }}delete/">Radera</a>
+                            {{ tid.get_tot }} Tim
+                        </td>
+                        <td>
+                            <a class="text-success" href="{{ tid.get_absolute_url }}update/"><i class="fas fa-edit"></i></a>
+                            <a class="text-danger" href="{{ tid.get_absolute_url }}delete/"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                     {% endfor %}

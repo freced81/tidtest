@@ -6,17 +6,17 @@
             <thead class="thead-dark">
                 <tr>
                     <th class="text-warning" scope="col">#</th>
-                    <th class="text-warning" scope="col">Beskrivning</th>
+                    <th class="text-warning" scope="col">Projektnummer</th>
                     <th class="text-warning" scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                {% for projekt in projekt %}
+                {% for p in projekt %}
                     <tr>
                         <th scope="col">{{ forloop.counter }}</th>
-                        <td>{{ projekt.projektnr }}</td>
-                        <td><a class="text-success" href="{{ projekt.get_absolute_url }}update/">Uppdatera</a>,
-                            <a class="text-danger" href="{{ projekt.get_absolute_url }}delete/">Radera</a>,
+                        <td><a href="{{ p.get_absolute_url }}">{{ p.projektnr }}, {{ p.anlaggning}}</a></td>
+                        <td><a class="text-success" href="{{ p.get_absolute_url }}update/"><i class="fas fa-edit"></i></a>
+                            <a class="text-danger" href="{{ p.get_absolute_url }}delete/"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

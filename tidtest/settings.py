@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+'''
+DEBUG = False
+
+ALLOWED_HOSTS = ['freced81.pythonanywhere.com']
+'''
 
 # Application definition
 
@@ -83,8 +88,18 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
+''' 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'freced81$django',
+        'USER': 'freced81',
+        'PASSWORD': 'born1981',
+        'HOST': 'freced81.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
+    }
+}
+'''
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 

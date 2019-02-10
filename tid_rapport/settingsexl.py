@@ -47,10 +47,8 @@ merge_cells_settings = [
     "A1:D1",  # LOGGA
     "A2:D2",  # LOGGA
     "E1:J2",  # TIDUPGIFT
-    "K1:L1",  # DATUM FRÅN
-    "K2:L2",  # DATUM FRÅN
-    "M1:N1",  # DATUM TILL
-    "M2:N2",  # DATUM TILL
+    "K1:N1",  # ÅR
+    "K2:N2",  # ÅR
     "O1:R1",  # VECKA NR
     "O2:R2",  # VECKA NR
     "A3:G3",  # MONTÖR NAMN
@@ -71,8 +69,6 @@ font_settings = {
     "E1": "font_tiduppgift",
     "K1": "font_small",
     "K2": "font_normal",
-    "M1": "font_small",
-    "M2": "font_normal",
     "O1": "font_small",
     "O2": "font_normal",
     "A3": "font_small",
@@ -130,8 +126,7 @@ set_initial_text = {
     "A1": "Skandinavisk Process",
     "A2": "Automation AB",
     "E1": "TIDUPPGIFT",
-    "K1": "Datum fr.o.m",
-    "M1": "Datum t.o.m",
+    "K1": "År",
     "O1": "Vecka Nr",
     "A3": "Montörens Namn",
     "H3": "Order Nr",

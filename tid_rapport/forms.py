@@ -1,25 +1,17 @@
 from django import forms
 
-from .models import Arbetsplats, Projekt, Tid
+from .models import Projekt, Tid
 
-
-class ArbetsplatsForm(forms.ModelForm):
-    class Meta:
-        model = Arbetsplats
-        fields = ("arbetsplats_namn",)
-        widgets = {
-            "arbetsplats_namn": forms.TextInput(
-                attrs={"class": "form-control", "type": "text"}
-            )
-        }
 
 
 class ProjektForm(forms.ModelForm):
     class Meta:
         model = Projekt
-        fields = ("projektnr", 'arbetsplats',)
+        fields = ("projektnr", "anlaggning", 'ort', "kund")
         widgets = {"projektnr": forms.TextInput(attrs={"class": "form-control"}),
-                   "arbetsplats": forms.Select(attrs={"class": "form-control"}),
+                   "anlaggning": forms.TextInput(attrs={"class": "form-control"}),
+                   "ort": forms.TextInput(attrs={"class": "form-control"}),
+                   "kund": forms.TextInput(attrs={"class": "form-control"}),
                    }
 
 
@@ -38,6 +30,7 @@ class TidForm(forms.ModelForm):
             "fre",
             "lor",
             "son",
+            "restid",
             "trakt",
         )
         widgets = {
@@ -52,10 +45,12 @@ class TidForm(forms.ModelForm):
             "fre": forms.NumberInput(attrs={"class": "form-control"}),
             "lor": forms.NumberInput(attrs={"class": "form-control"}),
             "son": forms.NumberInput(attrs={"class": "form-control"}),
+            "restid": forms.NumberInput(attrs={"class": "form-control"}),
             "trakt": forms.NumberInput(attrs={"class": "form-control"}),
         }
 
 
 class TidSedelForm(forms.Form):
+    ar = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control"}))
     start_vecka = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control"}))
     stopp_vecka = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control"}))

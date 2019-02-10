@@ -11,45 +11,13 @@ from django.http.response import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from .models import Arbetsplats, Projekt, Tid
-from .forms import ArbetsplatsForm, ProjektForm, TidForm, TidSedelForm
+from .models import Projekt, Tid
+from .forms import ProjektForm, TidForm, TidSedelForm
 from tid_rapport.tidsedel import skapa_tidsedel
 
 
 class IndexView(TemplateView):
     template_name = "index.html"
-
-
-# Arbetsplats
-class ArbetsplatsList(ListView):
-    template_name = "arbetsplats/arbetsplats_list.html"
-    model = Arbetsplats
-    context_object_name = "arbetsplatser"
-
-
-class ArbetsplatsDetail(DetailView):
-    template_name = "arbetsplats/arbetsplats_detail.html"
-    model = Arbetsplats
-
-
-class CreateArbetsplats(CreateView):
-    template_name = "arbetsplats/arbetsplats_form.html"
-    model = Arbetsplats
-    form_class = ArbetsplatsForm
-    success_url = reverse_lazy("tid_rapport:arbetsplats_list")
-
-
-class ArbetsplatsUpdate(UpdateView):
-    template_name = "arbetsplats/arbetsplats_form.html"
-    model = Arbetsplats
-    form_class = ArbetsplatsForm
-    success_url = reverse_lazy("tid_rapport:arbetsplats_list")
-
-
-class ArbetsplatsDelete(DeleteView):
-    template_name = "arbetsplats/arbetsplats_confirm_delete.html"
-    model = Arbetsplats
-    success_url = reverse_lazy("tid_rapport:arbetsplats_list")
 
 
 # Projekt
@@ -124,11 +92,10 @@ def tidsedel(request):
         form = TidSedelForm(request.POST)
 
         if form.is_valid():
+            ar = form.cleaned_data['ar']
             start = form.cleaned_data['start_vecka']
             stopp = form.cleaned_data['stopp_vecka']
-            query = Tid.objects.filter(vecka__exact=start)
-            for q in query:
-                ar = q.ar
+
             if start == stopp:
                 filepath = "Tidsedel" + str(ar) + "V" + str(start) + ".xlsx"
             else:
@@ -136,7 +103,7 @@ def tidsedel(request):
             response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
             response['Content-Disposition'] = 'attachment; filename=' + filepath
 
-            return skapa_tidsedel(start, stopp, response)
+            return skapa_tidsedel(ar, start, stopp, response)
 
     else:
         form = TidSedelForm()
