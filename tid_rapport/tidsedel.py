@@ -25,9 +25,9 @@ def height_as_mm(mm):
     return result
 
 
-def skapa_tidsedel(ar, start, stopp, response):
+def skapa_tidsedel(ar, start, stopp, response, user):
 
-    queryset = Tid.objects.filter(vecka__range=(start, stopp)).filter(ar=ar)
+    queryset = Tid.objects.filter(vecka__range=(start, stopp)).filter(ar=ar).filter(user_id=user)
 
     wb = openpyxl.Workbook()
     sheet = wb.active
@@ -115,8 +115,8 @@ def skapa_tidsedel(ar, start, stopp, response):
         i += 1
 
     #  Ifyllning av tidsedel.
-    querystart = Tid.objects.filter(vecka__exact=start).filter(ar=ar)
-    querystopp = Tid.objects.filter(vecka__exact=stopp).filter(ar=ar)
+    querystart = Tid.objects.filter(vecka__exact=start).filter(ar=ar).filter(user_id=user)
+    querystopp = Tid.objects.filter(vecka__exact=stopp).filter(ar=ar).filter(user_id=user)
 
     for query in querystart:
         sheet['K2'] = query.ar

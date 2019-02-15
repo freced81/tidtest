@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django_extensions_shell',
     'tid_rapport.apps.TidRapportConfig',
     'users.apps.UsersConfig',
+    'crispy_forms',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_currentuser.middleware.ThreadLocalUserMiddleware',
 ]
 
 ROOT_URLCONF = 'tidtest.urls'
@@ -140,3 +143,5 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = 'tid_rapport:index'
 LOGIN_URL = 'login'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

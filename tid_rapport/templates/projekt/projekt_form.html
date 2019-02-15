@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}Projekt{% endblock %}
 {% block body_block %}
     <form method="post">{% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <input class="btn btn-outline-success" type="submit" value="Spara">
     </form>
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django_currentuser.db.models import CurrentUserField
 
 
 class Projekt(models.Model):
@@ -23,12 +24,11 @@ class Projekt(models.Model):
 
 class Tid(models.Model):
 
-
     class Meta:
         verbose_name_plural = "Tider"
         ordering = ['-ar', 'vecka']
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Användare")
+    user = CurrentUserField()
     ar = models.IntegerField(default=2019, verbose_name="År")
     vecka = models.IntegerField(default=1, verbose_name="Vecka")
     projektnr = models.ForeignKey("Projekt", on_delete=models.CASCADE, verbose_name="Beskrivning")
@@ -56,3 +56,4 @@ class Tid(models.Model):
 
     def get_absolute_url(self):
         return reverse("tid_rapport:tid_detail", kwargs={"pk": self.pk})
+

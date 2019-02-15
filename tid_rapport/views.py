@@ -1,4 +1,3 @@
-import os
 from django.views.generic import (
     TemplateView,
     ListView,
@@ -14,6 +13,7 @@ from django.urls import reverse_lazy
 from .models import Projekt, Tid
 from .forms import ProjektForm, TidForm, TidSedelForm
 from tid_rapport.tidsedel import skapa_tidsedel
+from django_currentuser.middleware import get_current_authenticated_user
 
 
 class IndexView(TemplateView):
@@ -53,10 +53,13 @@ class ProjektDelete(DeleteView):
 
 
 # Tid
-class TidList(ListView):
-    template_name = "tid/tid_list.html"
-    model = Tid
-    context_object_name = "tider"
+@login_required
+def tidlist(request):
+
+    user = get_current_authenticated_user()
+    tider = Tid.objects.filter(user=user)
+
+    return render(request, 'tid/tid_list.html', {'tider': tider})
 
 
 class TidDetail(DetailView):
@@ -102,8 +105,9 @@ def tidsedel(request):
                 filepath = "Tidsedel" + str(ar) + "V" + str(start) + "-" + str(stopp) + ".xlsx"
             response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
             response['Content-Disposition'] = 'attachment; filename=' + filepath
+            user = get_current_authenticated_user()
 
-            return skapa_tidsedel(ar, start, stopp, response)
+            return skapa_tidsedel(ar, start, stopp, response, user)
 
     else:
         form = TidSedelForm()

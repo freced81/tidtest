@@ -7,8 +7,8 @@ from .views import (
     CreateProjekt,
     ProjektUpdate,
     ProjektDelete,
-    TidList,
     TidDetail,
+    tidlist,
     CreateTid,
     TidUpdate,
     TidDelete,
@@ -26,7 +26,7 @@ urlpatterns = [
     path("projekt/<int:pk>/update/", login_required(ProjektUpdate.as_view()), name="projekt_update"),
     path("projekt/<int:pk>/delete/", login_required(ProjektDelete.as_view()), name="projekt_delete"),
     # Tid
-    path("tid/list/", login_required(TidList.as_view()), name="tid_list"),
+    path("tid/list/", tidlist, name="tid_list"),
     path("tid/<int:pk>/", login_required(TidDetail.as_view()), name="tid_detail"),
     path("tid/create/", login_required(CreateTid.as_view()), name="tid_create"),
     path("tid/<int:pk>/update/", login_required(TidUpdate.as_view()), name="tid_update"),
