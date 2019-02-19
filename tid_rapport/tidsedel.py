@@ -80,8 +80,8 @@ def skapa_tidsedel(ar, start, stopp, response, user):
 
     for item in border_font_normal:
         sheet[item].font = font_normal
-        sheet[item].border = border_all
         sheet[item].alignment = align_left
+        sheet[item].border = border_all
 
     for item in font_normal_settings:
         i = 8
@@ -144,6 +144,8 @@ def skapa_tidsedel(ar, start, stopp, response, user):
         sheet['J' + str(i)] = query.son
         sheet['K' + str(i)] = query.restid
         sheet['P' + str(i)] = query.trakt
+        sheet['Q' + str(i)] = query.pmil
+        sheet['R' + str(i)] = query.fmil
         i += 1
 
     wb.save(filename=response)
