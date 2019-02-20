@@ -27,6 +27,8 @@ class TidForm(forms.ModelForm):
             "son",
             "restid",
             "trakt",
+            "pmil",
+            "fmil",
         )
 
 

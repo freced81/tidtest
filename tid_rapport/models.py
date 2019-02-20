@@ -31,7 +31,7 @@ class Tid(models.Model):
     user = CurrentUserField()
     ar = models.IntegerField(default=2019, verbose_name="År")
     vecka = models.IntegerField(default=1, verbose_name="Vecka")
-    projektnr = models.ForeignKey("Projekt", on_delete=models.CASCADE, verbose_name="Beskrivning")
+    projektnr = models.ForeignKey("Projekt", on_delete=models.CASCADE, verbose_name="Projekt")
     mon = models.IntegerField(default=0, verbose_name="Måndag")
     tis = models.IntegerField(default=0, verbose_name="Tisdag")
     ons = models.IntegerField(default=0, verbose_name="Onsdag")
@@ -41,6 +41,8 @@ class Tid(models.Model):
     son = models.IntegerField(default=0, verbose_name="Söndag")
     restid = models.IntegerField(default=0, verbose_name="Restid")
     trakt = models.IntegerField(default=0, verbose_name="Trakt")
+    pmil = models.IntegerField(default=0, verbose_name='Mil egen bil')
+    fmil = models.IntegerField(default=0, verbose_name='Mil firmabil bil')
 
     def __str__(self):
         return str(self.vecka)
