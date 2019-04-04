@@ -27,7 +27,11 @@ def height_as_mm(mm):
 
 def skapa_tidsedel(ar, start, stopp, response, user):
 
-    queryset = Tid.objects.filter(vecka__range=(start, stopp)).filter(ar=ar).filter(user_id=user)
+    queryset = (
+        Tid.objects.filter(vecka__range=(start, stopp))
+        .filter(ar=ar)
+        .filter(user_id=user)
+    )
 
     wb = openpyxl.Workbook()
     sheet = wb.active
@@ -106,7 +110,19 @@ def skapa_tidsedel(ar, start, stopp, response, user):
 
     i = 8
     while i < 21:
-        sheet["N" + str(i)] = "=IF($L" + str(i) + ">40, $L" + str(i) + "-40, 0)"
+        sheet["N" + str(i)] = (
+            "=IF(SUM(D"
+            + str(i)
+            + ":H"
+            + str(i)
+            + ")"
+            + ">40, SUM(D"
+            + str(i)
+            + ":H"
+            + str(i)
+            + ")"
+            + "-40, 0)"
+        )
         i += 1
 
     i = 8
@@ -115,37 +131,41 @@ def skapa_tidsedel(ar, start, stopp, response, user):
         i += 1
 
     #  Ifyllning av tidsedel.
-    querystart = Tid.objects.filter(vecka__exact=start).filter(ar=ar).filter(user_id=user)
-    querystopp = Tid.objects.filter(vecka__exact=stopp).filter(ar=ar).filter(user_id=user)
+    querystart = (
+        Tid.objects.filter(vecka__exact=start).filter(ar=ar).filter(user_id=user)
+    )
+    querystopp = (
+        Tid.objects.filter(vecka__exact=stopp).filter(ar=ar).filter(user_id=user)
+    )
 
     for query in querystart:
-        sheet['K2'] = query.ar
-        sheet['A4'] = query.get_full_name()
-        sheet['K4'] = str(query.projektnr.anlaggning)
-        sheet['H6'] = query.projektnr.ort
-        sheet['A6'] = query.projektnr.kund
-        startvecka = str(query.vecka) + '-'
-        sheet['O2'] = query.vecka
+        sheet["K2"] = query.ar
+        sheet["A4"] = query.get_full_name()
+        sheet["K4"] = str(query.projektnr.anlaggning)
+        sheet["H6"] = query.projektnr.ort
+        sheet["A6"] = query.projektnr.kund
+        startvecka = str(query.vecka) + "-"
+        sheet["O2"] = query.vecka
 
     for query in querystopp:
         if start != stopp:
-            sheet['O2'] = startvecka + str(query.vecka)
+            sheet["O2"] = startvecka + str(query.vecka)
     i = 8
     for query in queryset:
-        sheet['A' + str(i)] = query.vecka
-        sheet['B' + str(i)] = query.projektnr.projektnr
-        sheet['C' + str(i)] = query.projektnr.anlaggning + ', ' + query.projektnr.ort
-        sheet['D' + str(i)] = query.mon
-        sheet['E' + str(i)] = query.tis
-        sheet['F' + str(i)] = query.ons
-        sheet['G' + str(i)] = query.tors
-        sheet['H' + str(i)] = query.fre
-        sheet['I' + str(i)] = query.lor
-        sheet['J' + str(i)] = query.son
-        sheet['K' + str(i)] = query.restid
-        sheet['P' + str(i)] = query.trakt
-        sheet['Q' + str(i)] = query.pmil
-        sheet['R' + str(i)] = query.fmil
+        sheet["A" + str(i)] = query.vecka
+        sheet["B" + str(i)] = query.projektnr.projektnr
+        sheet["C" + str(i)] = query.projektnr.anlaggning + " " + query.projektnr.ort
+        sheet["D" + str(i)] = query.mon
+        sheet["E" + str(i)] = query.tis
+        sheet["F" + str(i)] = query.ons
+        sheet["G" + str(i)] = query.tors
+        sheet["H" + str(i)] = query.fre
+        sheet["I" + str(i)] = query.lor
+        sheet["J" + str(i)] = query.son
+        sheet["K" + str(i)] = query.restid
+        sheet["P" + str(i)] = query.trakt
+        sheet["Q" + str(i)] = query.pmil
+        sheet["R" + str(i)] = query.fmil
         i += 1
 
     wb.save(filename=response)

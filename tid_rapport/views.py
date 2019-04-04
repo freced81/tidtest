@@ -59,7 +59,7 @@ def tidlist(request):
     user = get_current_authenticated_user()
     tider = Tid.objects.filter(user=user)
 
-    return render(request, 'tid/tid_list.html', {'tider': tider})
+    return render(request, "tid/tid_list.html", {"tider": tider})
 
 
 class TidDetail(DetailView):
@@ -90,21 +90,25 @@ class TidDelete(DeleteView):
 @login_required
 def tidsedel(request):
 
-    if request.method == 'POST':
+    if request.method == "POST":
 
         form = TidSedelForm(request.POST)
 
         if form.is_valid():
-            ar = form.cleaned_data['ar']
-            start = form.cleaned_data['start_vecka']
-            stopp = form.cleaned_data['stopp_vecka']
+            ar = form.cleaned_data["ar"]
+            start = form.cleaned_data["start_vecka"]
+            stopp = form.cleaned_data["stopp_vecka"]
 
             if start == stopp:
                 filepath = "Tidsedel" + str(ar) + "V" + str(start) + ".xlsx"
             else:
-                filepath = "Tidsedel" + str(ar) + "V" + str(start) + "-" + str(stopp) + ".xlsx"
-            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-            response['Content-Disposition'] = 'attachment; filename=' + filepath
+                filepath = (
+                    "Tidsedel" + str(ar) + "V" + str(start) + "-" + str(stopp) + ".xlsx"
+                )
+            response = HttpResponse(
+                content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
+            response["Content-Disposition"] = "attachment; filename=" + filepath
             user = get_current_authenticated_user()
 
             return skapa_tidsedel(ar, start, stopp, response, user)
@@ -112,4 +116,4 @@ def tidsedel(request):
     else:
         form = TidSedelForm()
 
-    return render(request, 'tidsedel.html', {'form': form})
+    return render(request, "tidsedel.html", {"form": form})

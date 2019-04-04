@@ -3,12 +3,10 @@ from django import forms
 from .models import Projekt, Tid
 
 
-
 class ProjektForm(forms.ModelForm):
     class Meta:
         model = Projekt
-        fields = ("projektnr", "anlaggning", 'ort', "kund")
-
+        fields = ("projektnr", "anlaggning", "ort", "kund")
 
 
 class TidForm(forms.ModelForm):
@@ -33,6 +31,6 @@ class TidForm(forms.ModelForm):
 
 
 class TidSedelForm(forms.Form):
-    ar = forms.IntegerField()
+    ar = forms.IntegerField(initial=2019)
     start_vecka = forms.IntegerField()
     stopp_vecka = forms.IntegerField()
